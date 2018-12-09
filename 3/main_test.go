@@ -9,17 +9,17 @@ func Test_fabricCoord(t *testing.T) {
 	tests := []struct {
 		name string
 		s    string
-		want []coord
+		want []square
 	}{
 		{
 			name: "small square",
 			s:    "#6 @ 1,1: 1x1",
-			want: []coord{{x: 1, y: 1}},
+			want: []square{{x: 1, y: 1}},
 		},
 		{
 			name: "starts at zero",
 			s:    "#6 @ 0,0: 1x1",
-			want: []coord{{x: 0, y: 0}},
+			want: []square{{x: 0, y: 0}},
 		},
 		{
 			name: "zero size",
@@ -29,12 +29,12 @@ func Test_fabricCoord(t *testing.T) {
 		{
 			name: "not a square",
 			s:    "#6 @ 0,1: 1x2",
-			want: []coord{{x: 0, y: 1}, {x: 0, y: 2}},
+			want: []square{{x: 0, y: 1}, {x: 0, y: 2}},
 		},
 		{
 			name: "not a square2",
 			s:    "#6 @ 1,2: 1x2",
-			want: []coord{{x: 1, y: 2}, {x: 1, y: 3}},
+			want: []square{{x: 1, y: 2}, {x: 1, y: 3}},
 		},
 	}
 	for _, tt := range tests {
