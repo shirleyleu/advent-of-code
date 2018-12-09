@@ -93,41 +93,31 @@ func fabricCoord(s string) (int, []square) {
 	return id, coords
 }
 
-func count(c [][]square) int {
-	var count int
-	m := make(map[square]int)
-	for _, e := range c {
-		for _, coord := range e {
-			m[coord] += 1
-		}
-	}
-	for _, v := range m {
-		if v > 1 {
-			count += 1
-		}
-	}
-	return count
-}
-
 // Make a map representing squares and log the used squares in the map
 // Iterate over each id and find which one has square of only count 1 in map
 func iterateAndCount(sq []squares) (int, error) {
 	m := make(map[square]int)
+	// Build counter map
 	for _, e := range sq {
 		for _, coord := range e.sliceSquares {
 			m[coord] += 1
 		}
 	}
+	// Check if for one of the ids there are no overlaps
 	for _, e := range sq {
-		found := true
-		for _, coord := range e.sliceSquares {
-			if m[coord] != 1 {
-				found = false
-			}
+		if conflict(e, m) {
+			continue
 		}
-		if found == true {
-			return e.id, nil
-		}
+		return e.id, nil
 	}
 	return 0, errors.New("No id with no overlapping squares")
+}
+
+func conflict(e squares, m map[square]int) bool{
+	for _, coord := range e.sliceSquares {
+		if m[coord] != 1 {
+			return true
+		}
+	}
+	return false
 }
