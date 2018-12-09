@@ -44,7 +44,6 @@ func parse(input *os.File) (int, error) {
 			// Increment the number of times that freq has been hit
 			m[freq] += 1
 
-
 			// Check the count for a freq to break
 			if m[freq] > 1 {
 				return freq, nil
